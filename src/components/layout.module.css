@@ -1,0 +1,12 @@
+.wrapper {
+    padding: 50px;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    position: fixed;
+}
+
+.content {
+    margin-left: var(--sidebar-width);
+}
