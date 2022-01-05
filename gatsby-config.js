@@ -21,6 +21,17 @@ module.exports = {
   plugins: [
     `gatsby-plugin-image`,
     {
+      resolve: `gatsby-plugin-ts`,
+      options: {
+        documentPaths: [`./src/**/*.{ts,tsx}`],
+        codegenConfig: {
+          avoidOptionals: {
+            field: true
+          },
+        }
+      }
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/content/blog`,

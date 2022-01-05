@@ -5,7 +5,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 
   // Define a template for blog post
-  const blogPost = path.resolve(`./src/templates/blog-post.js`)
+  const blogPost = path.resolve(`./src/templates/BlogPost/BlogPost.tsx`)
 
   // Get all markdown blog posts sorted by date
   const result = await graphql(
@@ -64,6 +64,10 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode })
 
+    if (node.frontmatter.title === '') {
+      node.frontmatter.title = null
+    }
+
     createNodeField({
       name: `slug`,
       node,
@@ -98,18 +102,18 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
 
     type MarkdownRemark implements Node {
-      frontmatter: Frontmatter
-      fields: Fields
+      frontmatter: Frontmatter!
+      fields: Fields!
     }
 
     type Frontmatter {
-      title: String
+      title: String!
       description: String
-      date: Date @dateformat
+      date: Date! @dateformat
     }
 
     type Fields {
-      slug: String
+      slug: String!
     }
   `)
 }

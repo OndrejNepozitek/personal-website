@@ -1,8 +1,9 @@
 import * as React from "react"
-import * as styles from "./layout.module.css"
-import Sidebar from "./Sidebar/Sidebar"
+import * as styles from "./Layout.module.css"
+import Sidebar from "../Sidebar/Sidebar"
+import { FunctionComponent } from "react"
 
-const Layout = ({ location, title, children }) => {
+const Layout : FunctionComponent<{title?: string, location?: any}> = ({ children }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.sidebar}>

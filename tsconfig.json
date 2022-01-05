@@ -13,7 +13,9 @@
     "noUnusedParameters": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "allowJs": true
   },
   "include": ["./src/**/*"]
 }
