@@ -1,10 +1,10 @@
 import * as React from "react"
 import { graphql } from "gatsby"
-
 import Layout from "../../components/Layout/Layout"
 import Seo from "../../components/Seo"
 import { FunctionComponent } from "react"
 import { BlogPostBySlugQuery } from "../../../graphql-types"
+import * as styles from "./BlogPost.module.css"
 
 const BlogPostTemplate: FunctionComponent<{
   data: BlogPostBySlugQuery
@@ -20,7 +20,7 @@ const BlogPostTemplate: FunctionComponent<{
         description={post.frontmatter.description || post.excerpt}
       />
       <article
-        className="blog-post"
+        className={styles.content}
         itemScope
         itemType="http://schema.org/Article"
       >
