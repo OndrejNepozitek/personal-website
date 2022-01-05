@@ -5,12 +5,13 @@ import Seo from "../../components/Seo"
 import { FunctionComponent } from "react"
 import { BlogPostBySlugQuery } from "../../../graphql-types"
 import * as styles from "./BlogPost.module.css"
+import { MDXRenderer } from "gatsby-plugin-mdx"
 
 const BlogPostTemplate: FunctionComponent<{
   data: BlogPostBySlugQuery
   location: string
 }> = ({ data }) => {
-  const post = data.markdownRemark!
+  const post = data.mdx!
   // const siteTitle = data.site.siteMetadata?.title || `Title`
 
   return (
@@ -28,10 +29,7 @@ const BlogPostTemplate: FunctionComponent<{
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
         </header>
-        <section
-          dangerouslySetInnerHTML={{ __html: post.html! }}
-          itemProp="articleBody"
-        />
+        <MDXRenderer>{post.body}</MDXRenderer>
       </article>
     </Layout>
   )
@@ -50,17 +48,17 @@ export const pageQuery = graphql`
         title
       }
     }
-    markdownRemark(id: { eq: $id }) {
+    mdx(id: { eq: $id }) {
       id
       excerpt(pruneLength: 160)
-      html
+      body
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
         description
       }
     }
-    previous: markdownRemark(id: { eq: $previousPostId }) {
+    previous: mdx(id: { eq: $previousPostId }) {
       fields {
         slug
       }
@@ -68,7 +66,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    next: markdownRemark(id: { eq: $nextPostId }) {
+    next: mdx(id: { eq: $nextPostId }) {
       fields {
         slug
       }
