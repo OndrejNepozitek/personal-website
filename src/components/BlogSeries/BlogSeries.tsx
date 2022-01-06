@@ -17,7 +17,7 @@ function getPosts() {
     const data: BlogPostsWithSeriesQuery = useStaticQuery(
       graphql`
         query BlogPostsWithSeries {
-          allMdx(filter: {}) {
+            allMdx(sort: {order: ASC, fields: frontmatter___date}) {
             nodes {
               fields {
                 slug
@@ -45,7 +45,7 @@ function getPosts() {
   return cachedPosts
 }
 
-const BlogSeries : FunctionComponent<{slug: string}> = ({slug}) => {
+const BlogSeries: FunctionComponent<{ slug: string }> = ({ slug }) => {
   const posts = getPosts()
   const currentPost = posts.find(post => post.slug === slug)
 
@@ -60,9 +60,7 @@ const BlogSeries : FunctionComponent<{slug: string}> = ({slug}) => {
     <div className={styles.wrapper}>
       <div className={styles.header}>
         This blog post is a part of the{" "}
-        <span className={styles.seriesName}>
-          Graph-Based Dungeon Generator
-        </span>{" "}
+        <span className={styles.seriesName}>Graph-Based Dungeon Generator</span>{" "}
         series:
         <ul className={styles.parts}>
           {seriesPosts.map((post, index) => {

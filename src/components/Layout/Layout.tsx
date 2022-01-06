@@ -4,9 +4,10 @@ import Sidebar from "../Sidebar/Sidebar"
 import { FunctionComponent } from "react"
 import { MDXProvider } from "@mdx-js/react"
 import BlogSeries from "../BlogSeries/BlogSeries"
+import { EdgarLinks } from "../Shotcodes/Shortcodes"
 
 const shortcodes = {
-  BlogSeries
+  BlogSeries, EdgarLinks
 }
 
 const Layout : FunctionComponent<{title?: string, location?: any}> = ({ children }) => {
