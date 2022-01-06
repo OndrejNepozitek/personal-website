@@ -6,6 +6,7 @@ require('ts-node').register({
 })
 
 module.exports = {
+  pathPrefix: "/personal-website",
   siteMetadata: {
     title: `Gatsby Starter Blog`,
     author: {

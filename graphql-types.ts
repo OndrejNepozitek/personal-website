@@ -247,8 +247,8 @@ export type DirectoryCtimeArgs = {
 export type Site = Node & {
   buildTime: Maybe<Scalars['Date']>;
   siteMetadata: Maybe<SiteSiteMetadata>;
-  polyfill: Maybe<Scalars['Boolean']>;
   pathPrefix: Maybe<Scalars['String']>;
+  polyfill: Maybe<Scalars['Boolean']>;
   jsxRuntime: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   parent: Maybe<Node>;
@@ -814,8 +814,8 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: InputMaybe<DateQueryOperatorInput>;
   siteMetadata?: InputMaybe<SiteSiteMetadataFilterInput>;
-  polyfill?: InputMaybe<BooleanQueryOperatorInput>;
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
+  polyfill?: InputMaybe<BooleanQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
@@ -2009,8 +2009,8 @@ export type SiteFieldsEnum =
   | 'siteMetadata___author___summary'
   | 'siteMetadata___siteUrl'
   | 'siteMetadata___social___twitter'
-  | 'polyfill'
   | 'pathPrefix'
+  | 'polyfill'
   | 'jsxRuntime'
   | 'id'
   | 'parent___id'
@@ -2143,8 +2143,8 @@ export type SiteGroupConnectionGroupArgs = {
 export type SiteFilterInput = {
   buildTime?: InputMaybe<DateQueryOperatorInput>;
   siteMetadata?: InputMaybe<SiteSiteMetadataFilterInput>;
-  polyfill?: InputMaybe<BooleanQueryOperatorInput>;
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
+  polyfill?: InputMaybe<BooleanQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
