@@ -29,7 +29,7 @@ const BlogPostTemplate: FunctionComponent<{
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
         </header>
-        <MDXRenderer>{post.body}</MDXRenderer>
+        <MDXRenderer slug={post.fields.slug}>{post.body}</MDXRenderer>
       </article>
     </Layout>
   )
@@ -52,6 +52,9 @@ export const pageQuery = graphql`
       id
       excerpt(pruneLength: 160)
       body
+      fields {
+        slug
+      }
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")

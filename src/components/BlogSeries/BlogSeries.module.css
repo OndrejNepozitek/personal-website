@@ -1,0 +1,24 @@
+.wrapper {
+
+}
+
+.header {
+
+}
+
+.series-name {
+    font-weight: 500;
+}
+
+ul.parts {
+    margin-top: 5px;
+}
+
+li.part {
+    margin-bottom: calc(var(--spacing-2) / 2);
+}
+
+.here {
+    font-style: italic;
+    font-size: 0.8rem;
+}
