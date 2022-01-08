@@ -336,3 +336,30 @@ a:focus {
     list-style-position: inside;
   }
 }
+
+/* Custom */
+
+.gatsby-resp-image-figure {
+  margin: 0;
+  display: grid;
+  align-self: stretch;
+  grid-template-rows: 1fr auto;
+}
+
+.gatsby-resp-image-figcaption {
+  text-align: center;
+  align-self: end;
+  margin: 5px 0px;
+}
+
+.gatsby-grid-figcaption, .gatsby-resp-image-figcaption {
+  font-size: 0.8rem;
+}
+
+.gatsby-grid-figcaption {
+  margin-top: 10px;
+}
+
+.gatsby-resp-image-wrapper {
+  align-self: center;
+}

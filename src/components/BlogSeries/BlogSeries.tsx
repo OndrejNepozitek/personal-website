@@ -10,6 +10,10 @@ type PostData = {
   series: string
 }
 
+const seriesDatabase = new Map<string, string>([
+  ["graph-based-generator", "Graph-Based Dungeon Generator"],
+]);
+
 let cachedPosts: Array<PostData> | null = null
 
 function getPosts() {
@@ -55,12 +59,17 @@ const BlogSeries: FunctionComponent<{ slug: string }> = ({ slug }) => {
 
   const series = currentPost.series
   const seriesPosts = posts.filter(post => post.series === series)
+  const title = seriesDatabase.get(series)
+
+  if (!series) {
+    throw 'Series has no title!'
+  }
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         This blog post is a part of the{" "}
-        <span className={styles.seriesName}>Graph-Based Dungeon Generator</span>{" "}
+        <span className={styles.seriesName}>{title}</span>{" "}
         series:
         <ul className={styles.parts}>
           {seriesPosts.map((post, index) => {

@@ -18,10 +18,80 @@ The algorithm was written as a part of my [bachelor thesis](https://github.com/O
 
 To produce a game level, the algorithm takes a set of polygonal building blocks and a level connectivity graph (the level topology) as an input. Nodes in the graph represent rooms, and edges define connectivities between them. The goal of the algorithm is to assign a room shape and a position to each node in the graph in a way that no two room shapes intersect and every pair of neighbouring room shapes can be connected by doors.
 
+```grid|2
+![Level graph](./images/level_graph.png)
+![Building blocks](./images/building_blocks.png)
+![Generated level](./images/advanced_1.png)
+![Generated level](./images/advanced_2.png)
+```
+
 Through the connectivity graph, a game designer can easily affect the flow of gameplay. Do you want a single main path to a boss room with some optional side paths? Simply start with a path graph and then pick some nodes where the player can choose to either follow the main path or explore a side path with possible treasures and/or monsters waiting for him. Do you want a shortcut? Simply choose two nodes in the graph and add a shorter path that connects them. The possibilities are endless.
+
+```grid|3
+![](./images/sample_graph_1.png)
+![](./images/sample_graph_2.png)
+![](./images/sample_graph_3.png)
+```
 
 Not only does the algorithm allow game designers to control the high-level structure of generated layouts, it also provides ways to control the look of individual rooms and how they are connected to each other.
 
-## Different room shapes for different rooms
+### Different room shapes for different rooms
 
 I mentioned having a boos room at the end of the dungeon. But we do not want our boss room to look like every other room, right? The algorithm supports defining room shapes on a per-room basis. For example, we may have a spawn room and a boss room that should have their own sets of room shapes and then one generic set for other rooms.
+
+```grid|2|Two layouts generated from an input graph that has a special room shape assigned to the room number 8.
+![](./images/boss_room_level_1.png)
+![](./images/boss_room_level_2.png)
+```
+
+### Explicit door positions
+
+Imagine having a really nice script for our boss encounter and that we need the player to enter the boss room from a specified tile. Or we may have a room template with some tiles reserved for walls or other obstacles. The algorithm allows game designers to explicitly specify possible door positions of individual room shapes.
+
+But sometimes our goal may be the opposite. We may design our room templates in a way that they can have doors virtually anywhere. By doing that, we put fewer constraints on the algorithm, and it therefore often runs faster and generated layouts may feel less repetitive and more organic. For such situations, there is a possibility to simply specify length of the doors and how far from corners they should be. The distance from corners is kind of a compromise between manually specifying all doors and having doors anywhere.
+
+```grid|2|(a) illustrates different types of door positions – the square room has 8 explicitly defined door positions, whilst the rectangular room uses lenght and distance from corners. (b) shows a simple generated layout with room shapes from (a).
+![(a)](./images/door_positions.png)
+![(b)](./images/door_positions_level.png)
+```
+
+### Corridors between rooms
+
+When we talk about dungeon levels, we often imagine rooms connected by narrow corridors. It would be tempting to think that connections in the input graph represent corridors. However, these connections aren't corridors – they just ensure that all neighbouring nodes can be connected directly by doors. If we want to have rooms connected by corridors, we have to insert a new node between all pairs of neighbouring rooms and pretend they are corridor rooms (with specific room shapes and door positions assigned).
+
+```grid|2|Illustration of how we can modify the input graph to add corridors between rooms. (a) shows an input graph before adding corridor rooms. (b) shows an input graph created from (a) by adding a new room between all neigbouring rooms in the original graph.
+![(a)](./images/level_graph_no_corridors.png)
+![(b)](./images/level_graph_with_corridors.png)
+```
+
+Unfortunately, by doing so we make the task a lot harder for the algorithm as we often end up with twice as many nodes. Therefore, I implemented a version of the algorithm that is aware of corridors and can reduce the performance loss of laying out corridor rooms. The algorithm currently supports either having corridors between all rooms or not having corridors at all, but I plan to make this more customizable in the future.
+
+## Examples
+
+```grid|2|Several layouts generated with different sets of building blocks and corridors enabled.
+![](./images/example_1_input.png)
+![](./images/example_1_result_1.png)
+![](./images/example_1_result_2.png)
+![](./images/example_1_result_3.png)
+```
+
+```grid|2|Several layouts generated with different sets of building blocks and corridors enabled.
+![](./images/example_2_input.png)
+![](./images/example_2_result_1.png)
+![](./images/example_2_result_2.png)
+![](./images/example_2_result_3.png)
+```
+
+## Download
+
+You can find a .NET implementation of the algorithm on [my github](https://github.com/OndrejNepozitek/Edgar-DotNet). The repository contains a .NET DLL and a WinForms GUI application which is controlled by YAML configuration files.
+
+## What's next
+
+In the next post I’ll describe how the algorithm works under the hood.
+
+I’m also working on a Unity plugin for procedural dungeon generation that will incorporate this algorithm. The reason for that is that even though this algorithm can be directly used in Unity (as it is written in C#), the user experience is far from ideal. It is quite time-consuming to design room templates without a GUI and there is also quite a lot of programming needed to transform the output of the algorithm to a representation that is usable in a game.
+
+As I’m not a game developer myself, the goal is to make the plugin good enough for someone else to use it. If everything goes well, I’ll try to post updates when I have something interesting to present. I’ve also got quite a few ideas regarding the generator itself and testing its possibilities.
+
+If you have any questions or suggestions, please let me know in the comments! Also, this is my very first blog post so any feedback is appreciated.
