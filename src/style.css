@@ -341,6 +341,10 @@ a:focus {
 
 .gatsby-resp-image-figure {
   margin: 0;
+}
+
+.gatsby-grid .gatsby-resp-image-figure {
+
   display: grid;
   align-self: stretch;
   grid-template-rows: 1fr auto;
@@ -348,8 +352,11 @@ a:focus {
 
 .gatsby-resp-image-figcaption {
   text-align: center;
+  margin: 5px 0;
+}
+
+.gatsby-grid .gatsby-resp-image-figcaption {
   align-self: end;
-  margin: 5px 0px;
 }
 
 .gatsby-grid-figcaption, .gatsby-resp-image-figcaption {
