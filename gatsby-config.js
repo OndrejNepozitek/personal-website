@@ -1,7 +1,7 @@
-require('ts-node').register({
+require("ts-node").register({
   compilerOptions: {
-    module: 'commonjs',
-    target: 'es2017',
+    module: "commonjs",
+    target: "es2017",
   },
 })
 
@@ -46,7 +46,7 @@ module.exports = {
               width: 800,
               related: false, //Optional: Will remove related videos from the end of an embedded YouTube video.
               noIframeBorder: true, //Optional: Disable insertion of <style> border: 0
-              loadingStrategy: 'lazy', //Optional: Enable support for lazy-load offscreen iframes. Default is disabled.
+              loadingStrategy: "lazy", //Optional: Enable support for lazy-load offscreen iframes. Default is disabled.
               urlOverrides: [
                 {
                   id: "youtube",
@@ -83,10 +83,7 @@ module.exports = {
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
         ],
-        remarkPlugins: [
-          require(`remark-math`),
-          require(`remark-html-katex`),
-        ],
+        remarkPlugins: [require(`remark-math`), require(`remark-html-katex`)],
       },
     },
     {
@@ -95,10 +92,10 @@ module.exports = {
         documentPaths: [`./src/**/*.{ts,tsx}`],
         codegenConfig: {
           avoidOptionals: {
-            field: true
+            field: true,
           },
-        }
-      }
+        },
+      },
     },
     // {
     //   resolve: `gatsby-transformer-remark`,
@@ -183,5 +180,12 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
+    {
+      resolve: "gatsby-redirect-from",
+      options: {
+        query: "allMdx",
+      },
+    },
+    `gatsby-plugin-meta-redirect`,
   ],
 }
