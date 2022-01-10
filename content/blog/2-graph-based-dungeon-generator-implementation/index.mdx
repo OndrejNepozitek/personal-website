@@ -6,6 +6,7 @@ seriesName: "Implementation"
 ---
 
 TODO: previous post link
+TODO: code captions
 
 In this blog post, I’ll describe the core ideas behind the algorithm that was presented in the previous post. Initially I thought I’d describe the core concepts together with all the main improvements that are needed to make the algorithm fast enough. However, it turned out that even the core concepts alone are probably more than enough for a single post. So I decided to cover performance improvements in a future post instead.
 
@@ -103,4 +104,55 @@ To decompose a graph into chains, we have to find a planar embedding of the inpu
 
 Simulated annealing operates by iteratively considering small changes to the current configuration, or layout. That means that we create a new configuration by randomly picking one node and changing its position or shape. If the new configuration improves the energy function, it’s always accepted. Otherwise, there’s a small probability of accepting the configuration anyway. The probability of accepting worse solutions decreases over time. The energy function is constructed in a way that it heavily penalizes nodes that intersect and neighbouring nodes that do not overlap.
 
+$$
+E = e^{\frac{A}{\omega}} e^{\frac{D}{\omega}} – 1
+$$
+
+$A$ is the total area of intersection between all pairs of blocks in the layout. $D$ is the sum of squared distances between the centers of pairs of blocks that are neighbours in the input graph, but which are not in contact. The value of $\omega$ affects how often is simulated annealing allowed to move to a worse configuration, and is derived from the average area of building blocks.
+
+After picking a node to be changed, we either change its shape or its position. How do we choose a new position? We could pick it at random but that would often make the energy function worse and the algorithm would converge very slowly. Are we able to choose a position that will most likely improve the energy function? Do you see where I’m heading? We’ll use configuration spaces to choose a position that satisfies constraints of as many neighbouring rooms as possible.
+
+Changing the shape is then only a matter of randomly picking one of available room shapes. The algorithm currently does not try to decide which shape has a better chance of leading us to a valid layout. However, it may be interesting to try that out and see if improves the speed of the algorithm.
+
+```csharp lineNumbers
+List<Layout> AddChain(chain, layout) {
+    var currentLayout = GetInitialLayout(layout, chain);
+    var generatedLayouts = new List<Layout>();
+
+    for (int i = 1; i <= n, i++) {
+        if (/* we already generated enough layouts */) {
+            break;
+        }
+
+        for (int j = 1; j <= m, j++) {
+            var newLayout = PerturbLayout(currentLayout, chain);
+
+            if (IsValid(newLayout)) {
+                if (DifferentEnough(newLayout, generatedLayouts)) {
+                    generatedLayouts.Add(newLayout);
+                }
+            }
+
+            if (/* newLayout better than currentLayout */) {
+                currentLayout = newLayout;
+            } else if (/* probability depending on how bad is the energy of newLayout */) {
+                currentLayout = newLayout;
+            }
+        }
+
+        /* decrease the chance of accepting worse layouts */
+    }
+
+    return generatedLayouts;
+}
+```
+
+To speed up the whole process, we try to find an initial configuration with a low energy. To do that, we construct a breadth-first search ordering of nodes in the current chain, starting from the ones that are adjacent to already laid out nodes. Ordered nodes are then placed one at a time, choosing a position from the configuration space with the lowest energy. We don’t do any backtracking here – it’s a simple greedy process.
+
+## Bonus video
+
+The following video shows layouts generated from the same input graph as in the first video. This time, however, it shows the incremental approach. You can see how the algorithm adds chains of nodes one by one. You can also see that there are sometimes 2 consecutive partial layouts with the same number of nodes. That happens when the algorithm backtracks. It first tries to add another chain to the first partial layout, fails, and then tries a different partial layout.
+
 `youtube: https://www.youtube.com/watch?v=28Ne6fHw2ss&ab_channel=OndrejNepozitek`
+
+<EdgarDownloadSection />

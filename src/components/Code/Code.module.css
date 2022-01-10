@@ -1,6 +1,7 @@
 .code {
     border-radius: 0.5rem;
     padding: 1rem;
+    font-size: 0.75rem;
 }
 
 .line {
@@ -16,7 +17,7 @@
     width: 30px;
     text-align: right;
     padding-right: 1rem;
-    font-size: 0.9rem;
+    font-size: 0.9em;
     user-select: none;
     opacity: 0.5;
 }

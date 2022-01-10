@@ -83,6 +83,10 @@ module.exports = {
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
         ],
+        remarkPlugins: [
+          require(`remark-math`),
+          require(`remark-html-katex`),
+        ],
       },
     },
     {

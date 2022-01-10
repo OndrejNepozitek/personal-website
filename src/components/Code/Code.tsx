@@ -8,7 +8,6 @@ import "prismjs/components/prism-csharp"
 import * as styles from "./Code.module.css"
 
 const Code = (props: any) => {
-  console.log(props)
   const className = props.children.props.className || ""
   const code = props.children.props.children.trim()
   const language = className.replace(/language-/, "")
