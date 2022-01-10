@@ -1,0 +1,22 @@
+.code {
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.line {
+    display: table-row;
+}
+
+.line-content {
+    display: table-cell;
+}
+
+.line-number {
+    display: table-cell;
+    width: 30px;
+    text-align: right;
+    padding-right: 1rem;
+    font-size: 0.9rem;
+    user-select: none;
+    opacity: 0.5;
+}

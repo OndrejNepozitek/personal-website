@@ -5,21 +5,24 @@ import { FunctionComponent } from "react"
 import { MDXProvider } from "@mdx-js/react"
 import BlogSeries from "../BlogSeries/BlogSeries"
 import { EdgarLinks } from "../Shotcodes/Shortcodes"
+import Code from "../Code/Code"
 
 const shortcodes = {
-  BlogSeries, EdgarLinks
+  BlogSeries,
+  EdgarLinks,
+  pre: Code,
 }
 
-const Layout : FunctionComponent<{title?: string, location?: any}> = ({ children }) => {
+const Layout: FunctionComponent<{ title?: string; location?: any }> = ({
+  children,
+}) => {
   return (
     <MDXProvider components={shortcodes}>
       <div className={styles.wrapper}>
         <div className={styles.sidebar}>
           <Sidebar />
         </div>
-        <div className={styles.content}>
-          {children}
-        </div>
+        <div className={styles.content}>{children}</div>
       </div>
     </MDXProvider>
   )
