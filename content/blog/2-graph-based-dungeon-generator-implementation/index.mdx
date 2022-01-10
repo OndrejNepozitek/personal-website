@@ -51,6 +51,7 @@ When solving a complex problem, one possible approach is to divide it into small
 Our final output layout is always a single connected component, hence there’s no benefit in laying out separate components and then trying to join them, as the joining process can be quite difficult. Instead, after laying out a chain, the next chain to connect is always one that’s connected to already laid out vertices.
 
 ```csharp lineNumbers
+$caption:A pseudocode showing an incremental approach to finding a valid layout.
 Layout GenerateLayout(inputGraph) {
     var emptyLayout = new Layout();
     var stack = new Stack<Layout>();
@@ -118,6 +119,7 @@ After picking a node to be changed, we either change its shape or its position. 
 Changing the shape is then only a matter of randomly picking one of available room shapes. The algorithm currently does not try to decide which shape has a better chance of leading us to a valid layout. However, it may be interesting to try that out and see if improves the speed of the algorithm.
 
 ```csharp lineNumbers
+$caption:A pseudocode of a method that’s responsible for laying out a single chain of rooms using simulated annealing.
 List<Layout> AddChain(chain, layout) {
     var currentLayout = GetInitialLayout(layout, chain);
     var generatedLayouts = new List<Layout>();

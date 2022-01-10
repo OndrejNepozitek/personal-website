@@ -2,6 +2,11 @@
     border-radius: 0.5rem;
     padding: 1rem;
     font-size: 0.75rem;
+
+}
+
+.code-wrapper {
+    margin-bottom: 36px
 }
 
 .line {
@@ -20,4 +25,9 @@
     font-size: 0.9em;
     user-select: none;
     opacity: 0.5;
+}
+
+.caption {
+    font-size: 0.8rem;
+    text-align: center;
 }
