@@ -1,0 +1,18 @@
+.posts {
+    list-style-type: none;
+    margin: 0px;
+}
+
+.post {
+    margin-bottom: 25px !important;
+}
+
+.post-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: var(--fontSize-4)
+}
+
+.post-date {
+    color: var(--color-primary);
+}

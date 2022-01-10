@@ -1,12 +1,13 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
-
-import Bio from "../components/bio"
 import Layout from "../components/Layout/Layout"
 import Seo from "../components/Seo"
+import * as styles from "./styles/index.module.css"
+import { FunctionComponent } from "react"
+import { IndexQuery } from "../../graphql-types"
 
-const BlogIndex = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata?.title || `Title`
+const BlogIndex: FunctionComponent<{ data: IndexQuery }> = ({ data }) => {
+  const siteTitle = data.site!.siteMetadata?.title || `Title`
   const posts = data.allMdx.nodes
 
   if (posts.length === 0) {
@@ -23,34 +24,38 @@ const BlogIndex = ({ data, location }) => {
   }
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout title={siteTitle}>
       <Seo title="All posts" />
-      <ol style={{ listStyle: `none` }}>
+      <ol className={styles.posts}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 
           return (
             <li key={post.fields.slug}>
               <article
-                className="post-list-item"
+                className={styles.post}
                 itemScope
                 itemType="http://schema.org/Article"
               >
                 <header>
-                  <h2>
+                  <h2 className={styles.postTitle}>
                     <Link to={post.fields.slug} itemProp="url">
                       <span itemProp="headline">{title}</span>
                     </Link>
                   </h2>
-                  <small>{post.frontmatter.date}</small>
+                  <small className={styles.postDate}>
+                    {post.frontmatter.date}
+                  </small>
                 </header>
                 <section>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: post.frontmatter.description || post.excerpt,
-                    }}
-                    itemProp="description"
-                  />
+                  {post.frontmatter.description && (
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: post.frontmatter.description,
+                      }}
+                      itemProp="description"
+                    />
+                  )}
                 </section>
               </article>
             </li>
@@ -64,7 +69,7 @@ const BlogIndex = ({ data, location }) => {
 export default BlogIndex
 
 export const pageQuery = graphql`
-  query {
+  query Index {
     site {
       siteMetadata {
         title

@@ -10,4 +10,5 @@
 .content {
     margin-left: var(--sidebar-width);
     padding-left: 30px;
+    width: 780px;
 }
