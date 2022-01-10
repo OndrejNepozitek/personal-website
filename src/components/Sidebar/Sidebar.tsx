@@ -5,8 +5,11 @@ import Icon from "../Icon/Icon"
 import getIcon from "../../utils/get_icon"
 import { FunctionComponent } from "react"
 
-const IconLink : FunctionComponent<{link: string, iconName: string}> = ({ link, iconName }) => {
-  const icon = getIcon(iconName);
+const IconLink: FunctionComponent<{ link: string; iconName: string }> = ({
+  link,
+  iconName,
+}) => {
+  const icon = getIcon(iconName)
 
   return (
     <a href={link} target="_blank" className={styles.contactLink}>
@@ -15,7 +18,7 @@ const IconLink : FunctionComponent<{link: string, iconName: string}> = ({ link, 
   )
 }
 
-const MenuItem : FunctionComponent<{to: string}> = props => {
+const MenuItem: FunctionComponent<{ to: string }> = props => {
   return (
     <li>
       <Link
@@ -29,10 +32,12 @@ const MenuItem : FunctionComponent<{to: string}> = props => {
   )
 }
 
-const Sidebar : FunctionComponent = () => {
+const Sidebar: FunctionComponent = () => {
   return (
     <div className={styles.content}>
-      <div className={styles.title}>Ondřej Nepožitek</div>
+      <div className={styles.title}>
+        <Link to="/">Ondřej Nepožitek</Link>
+      </div>
       <div className={styles.subTitle}>
         software developer, procedural generation enthusiast
       </div>
@@ -42,10 +47,16 @@ const Sidebar : FunctionComponent = () => {
         <MenuItem to="/about">About</MenuItem>
       </ul>
       <div className={styles.contacts}>
-        <IconLink link="https://twitter.com/OndrejNepozitek" iconName="twitter" />
+        <IconLink
+          link="https://twitter.com/OndrejNepozitek"
+          iconName="twitter"
+        />
         <IconLink link="https://github.com/OndrejNepozitek" iconName="github" />
         <IconLink link="mailto:ondra@nepozitek.cz" iconName="email" />
-        <IconLink link="https://www.linkedin.com/in/ondrej-nepozitek/" iconName="linkedin" />
+        <IconLink
+          link="https://www.linkedin.com/in/ondrej-nepozitek/"
+          iconName="linkedin"
+        />
       </div>
     </div>
   )

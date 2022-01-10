@@ -8,6 +8,11 @@
     font-family: "Arial";
 }
 
+.title a {
+    color: black !important;
+    text-decoration: none !important;
+}
+
 .sub-title {
     color: #888;
     font-family: Montserrat;
