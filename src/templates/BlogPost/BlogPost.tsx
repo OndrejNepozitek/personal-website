@@ -6,6 +6,7 @@ import { FunctionComponent } from "react"
 import { BlogPostBySlugQuery } from "../../../graphql-types"
 import * as styles from "./BlogPost.module.css"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+import { getSeriesName } from "../../utils/blog-series"
 
 const BlogPostTemplate: FunctionComponent<{
   data: BlogPostBySlugQuery
@@ -13,11 +14,14 @@ const BlogPostTemplate: FunctionComponent<{
 }> = ({ data }) => {
   const post = data.mdx!
   // const siteTitle = data.site.siteMetadata?.title || `Title`
+  const title = post.frontmatter.series
+    ? `${getSeriesName(post.frontmatter.series)}: ${post.frontmatter.title}`
+    : post.frontmatter.title;
 
   return (
     <Layout>
       <Seo
-        title={post.frontmatter.title}
+        title={title}
         description={post.frontmatter.description || post.excerpt}
       />
       <article
@@ -26,7 +30,7 @@ const BlogPostTemplate: FunctionComponent<{
         itemType="http://schema.org/Article"
       >
         <header>
-          <h1 itemProp="headline">{post.frontmatter.title}</h1>
+          <h1 itemProp="headline">{title}</h1>
           <p>{post.frontmatter.date}</p>
         </header>
         <MDXRenderer slug={post.fields.slug}>{post.body}</MDXRenderer>
@@ -59,6 +63,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        series
       }
     }
     previous: mdx(id: { eq: $previousPostId }) {

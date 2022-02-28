@@ -5,6 +5,7 @@ import Seo from "../components/Seo"
 import * as styles from "./styles/index.module.css"
 import { FunctionComponent } from "react"
 import { IndexQuery } from "../../graphql-types"
+import { getEpisodeNumber, getSeriesName, isPostInSeries } from "../utils/blog-series"
 
 const BlogIndex: FunctionComponent<{ data: IndexQuery }> = ({ data }) => {
   const siteTitle = data.site!.siteMetadata?.title || `Title`
@@ -27,19 +28,31 @@ const BlogIndex: FunctionComponent<{ data: IndexQuery }> = ({ data }) => {
     <Layout title={siteTitle}>
       <Seo title="All posts" />
       <ol className={styles.posts}>
-        {posts.map(post => {
+        {posts.map((post) => {
           const title = post.frontmatter.title || post.fields.slug
+          const slug = post.fields.slug
 
           return (
-            <li key={post.fields.slug}>
+            <li key={slug}>
               <article
                 className={styles.post}
                 itemScope
                 itemType="http://schema.org/Article"
               >
                 <header>
+                  {post.frontmatter.series && (
+                    <div>
+                      {/*<span className={styles.seriesPrefix}>Series: </span>*/}
+                      <span className={styles.seriesTitle}>
+                        {getSeriesName(post.frontmatter.series)}
+                      </span>
+                    </div>
+                  )}
                   <h2 className={styles.postTitle}>
-                    <Link to={post.fields.slug} itemProp="url">
+                    <Link to={slug} itemProp="url">
+                      {isPostInSeries(slug) && (
+                        <span>Part {getEpisodeNumber(slug)}: </span>
+                      )}
                       <span itemProp="headline">{title}</span>
                     </Link>
                   </h2>
@@ -85,6 +98,7 @@ export const pageQuery = graphql`
           date(formatString: "MMMM DD, YYYY")
           title
           description
+          series
         }
       }
     }
