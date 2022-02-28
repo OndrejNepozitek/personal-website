@@ -6,7 +6,11 @@ import { FunctionComponent } from "react"
 import { BlogPostBySlugQuery } from "../../../graphql-types"
 import * as styles from "./BlogPost.module.css"
 import { MDXRenderer } from "gatsby-plugin-mdx"
-import { getSeriesName } from "../../utils/blog-series"
+import {
+  getEpisodeNumber,
+  getSeriesName,
+  isPostInSeries,
+} from "../../utils/blog-series"
 
 const BlogPostTemplate: FunctionComponent<{
   data: BlogPostBySlugQuery
@@ -15,8 +19,8 @@ const BlogPostTemplate: FunctionComponent<{
   const post = data.mdx!
   // const siteTitle = data.site.siteMetadata?.title || `Title`
   const title = post.frontmatter.series
-    ? `${getSeriesName(post.frontmatter.series)}: ${post.frontmatter.title}`
-    : post.frontmatter.title;
+    ? `Part ${getEpisodeNumber(post.fields.slug)}: ${post.frontmatter.title}`
+    : post.frontmatter.title
 
   return (
     <Layout>
@@ -30,6 +34,11 @@ const BlogPostTemplate: FunctionComponent<{
         itemType="http://schema.org/Article"
       >
         <header>
+          {isPostInSeries(post.fields.slug) && (
+            <span className={styles.seriesTitle}>
+              {getSeriesName(post.frontmatter.series!)}
+            </span>
+          )}
           <h1 itemProp="headline">{title}</h1>
           <p>{post.frontmatter.date}</p>
         </header>
