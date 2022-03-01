@@ -90,6 +90,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       author: Author
       siteUrl: String
       social: Social
+      edgar: Edgar!
     }
 
     type Author {
@@ -99,6 +100,10 @@ exports.createSchemaCustomization = ({ actions }) => {
 
     type Social {
       twitter: String
+    }
+    
+    type Edgar {
+      assetStoreUrl: String!
     }
 
     type Mdx implements Node {

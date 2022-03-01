@@ -8,6 +8,7 @@
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
   "dependencies": {
+    "@fontsource/montserrat": "^4.5.5",
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
     "gatsby": "^4.4.0",
@@ -41,8 +42,7 @@
     "remark-html-katex": "3.0.0",
     "remark-math": "3.0.1",
     "ts-node": "^10.4.0",
-    "typeface-merriweather": "0.0.72",
-    "typeface-montserrat": "0.0.75"
+    "typeface-merriweather": "0.0.72"
   },
   "devDependencies": {
     "@types/mdx-js__react": "^1.5.5",

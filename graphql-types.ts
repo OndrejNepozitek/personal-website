@@ -272,6 +272,7 @@ export type SiteSiteMetadata = {
   author: Maybe<Author>;
   siteUrl: Maybe<Scalars['String']>;
   social: Maybe<Social>;
+  edgar: Edgar;
 };
 
 export type SiteFunction = Node & {
@@ -668,6 +669,10 @@ export type Author = {
 
 export type Social = {
   twitter: Maybe<Scalars['String']>;
+};
+
+export type Edgar = {
+  assetStoreUrl: Scalars['String'];
 };
 
 export type Frontmatter = {
@@ -1953,6 +1958,7 @@ export type SiteSiteMetadataFilterInput = {
   author?: InputMaybe<AuthorFilterInput>;
   siteUrl?: InputMaybe<StringQueryOperatorInput>;
   social?: InputMaybe<SocialFilterInput>;
+  edgar?: InputMaybe<EdgarFilterInput>;
 };
 
 export type AuthorFilterInput = {
@@ -1962,6 +1968,10 @@ export type AuthorFilterInput = {
 
 export type SocialFilterInput = {
   twitter?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type EdgarFilterInput = {
+  assetStoreUrl?: InputMaybe<StringQueryOperatorInput>;
 };
 
 export type SiteConnection = {
@@ -2017,6 +2027,7 @@ export type SiteFieldsEnum =
   | 'siteMetadata___author___summary'
   | 'siteMetadata___siteUrl'
   | 'siteMetadata___social___twitter'
+  | 'siteMetadata___edgar___assetStoreUrl'
   | 'port'
   | 'host'
   | 'pathPrefix'
@@ -3441,7 +3452,7 @@ export type BlogPostBySlugQueryVariables = Exact<{
 }>;
 
 
-export type BlogPostBySlugQuery = { site: { siteMetadata: { title: string | null | undefined } | null | undefined } | null | undefined, mdx: { id: string, excerpt: string, body: string, fields: { slug: string }, frontmatter: { title: string, date: any, description: string | null | undefined, series: string | null | undefined } } | null | undefined, previous: { fields: { slug: string }, frontmatter: { title: string } } | null | undefined, next: { fields: { slug: string }, frontmatter: { title: string } } | null | undefined };
+export type BlogPostBySlugQuery = { site: { siteMetadata: { title: string | null | undefined, edgar: { assetStoreUrl: string } } | null | undefined } | null | undefined, mdx: { id: string, excerpt: string, body: string, fields: { slug: string }, frontmatter: { title: string, date: any, description: string | null | undefined, series: string | null | undefined } } | null | undefined, previous: { fields: { slug: string }, frontmatter: { title: string } } | null | undefined, next: { fields: { slug: string }, frontmatter: { title: string } } | null | undefined };
 
 export type BlogPostsWithSeriesQueryVariables = Exact<{ [key: string]: never; }>;
 

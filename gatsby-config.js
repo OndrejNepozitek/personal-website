@@ -18,6 +18,9 @@ module.exports = {
     social: {
       twitter: `kylemathews`,
     },
+    edgar: {
+      assetStoreUrl: 'https://assetstore.unity.com/packages/tools/utilities/edgar-pro-procedural-level-generator-212735?aid=1100lozBv&pubref=edgar-blog'
+    }
   },
   plugins: [
     `gatsby-plugin-image`,

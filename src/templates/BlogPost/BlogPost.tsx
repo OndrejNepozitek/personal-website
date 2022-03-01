@@ -43,6 +43,11 @@ const BlogPostTemplate: FunctionComponent<{
           <p>{post.frontmatter.date}</p>
         </header>
         <MDXRenderer slug={post.fields.slug}>{post.body}</MDXRenderer>
+        <hr />
+        <div className={styles.footnote}>
+          Written by <span className={styles.footnoteName}>Ondřej Nepožitek</span>, who is a software developer and procedural generation enthusiast. In his free time, he usually works on <a href={data.site?.siteMetadata?.edgar.assetStoreUrl} target="_blank">Edgar</a>, his graph-based procedural level generator. Want to get in touch? See the sidebar.
+        </div>
+
       </article>
     </Layout>
   )
@@ -59,6 +64,9 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        edgar {
+          assetStoreUrl
+        }
       }
     }
     mdx(id: { eq: $id }) {
