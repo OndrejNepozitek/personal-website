@@ -58,20 +58,36 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 }
 
+/**
+ * Transform from "1-graph-based-dungeon-generator-basics"
+ * to "graph-based-dungeon-generator-basics-1"
+ */
+function transformSlug(slug) {
+  const slashParts = slug.split("/")
+  const postName = slashParts[slashParts.length - 2]
+  const firstHyphenPosition = postName.indexOf("-")
+  const postId = postName.substring(0, firstHyphenPosition)
+  const restOfName = postName.substring(firstHyphenPosition + 1)
+  const newSlug = `${restOfName}-${postId}`
+
+  return newSlug
+}
+
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
   if (node.internal.type === `Mdx`) {
-    const value = createFilePath({ node, getNode })
+    const slug = createFilePath({ node, getNode })
+    const transformedSlug = transformSlug(slug)
 
-    if (node.frontmatter.title === '') {
+    if (node.frontmatter.title === "") {
       node.frontmatter.title = null
     }
 
     createNodeField({
       name: `slug`,
       node,
-      value,
+      value: transformedSlug,
     })
   }
 }
