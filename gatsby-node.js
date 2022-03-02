@@ -59,16 +59,22 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 }
 
 /**
- * Transform from "1-graph-based-dungeon-generator-basics"
- * to "graph-based-dungeon-generator-basics-1"
+ * Transform from "/1-graph-based-dungeon-generator-basics/"
+ * to "/graph-based-dungeon-generator-basics-1/"
  */
 function transformSlug(slug) {
+  const endsWithSlash = slug.slice(slug.length - 1) === "/"
   const slashParts = slug.split("/")
-  const postName = slashParts[slashParts.length - 2]
+  const postNameIndex = endsWithSlash ? slashParts.length - 2 : slashParts.length - 1
+
+  const postName = slashParts[postNameIndex]
   const firstHyphenPosition = postName.indexOf("-")
   const postId = postName.substring(0, firstHyphenPosition)
   const restOfName = postName.substring(firstHyphenPosition + 1)
-  const newSlug = `${restOfName}-${postId}`
+  slashParts[postNameIndex] = `${restOfName}-${postId}`;
+  const newSlug = slashParts.join("/")
+
+  console.log(newSlug);
 
   return newSlug
 }
