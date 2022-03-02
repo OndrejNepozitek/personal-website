@@ -82,6 +82,10 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media screen and (max-width: 1023px) {
+  font-size: calc(0.9 * var(--fontSize-root));
+}
+
 body {
   font-family: var(--font-body);
   font-size: var(--fontSize-1);
@@ -369,4 +373,10 @@ a:focus {
 
 .gatsby-resp-image-wrapper {
   align-self: center;
+}
+
+@media screen and (max-width: 1023px) {
+  .no-mobile {
+    display: none;
+  }
 }

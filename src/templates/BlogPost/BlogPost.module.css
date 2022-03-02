@@ -4,7 +4,7 @@
 }
 
 .content h1 {
-    margin-top: 0px;
+    margin: 0;
     font-size: var(--fontSize-5);
 }
 
@@ -26,4 +26,9 @@
 
 .footnote-name {
     font-weight: bold;
+}
+
+.meta {
+    margin-bottom: 20px;
+    font-size: 0.85em;
 }

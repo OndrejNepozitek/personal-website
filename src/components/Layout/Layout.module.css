@@ -1,14 +1,22 @@
-.wrapper {
-    padding: 50px;
-}
-
-.sidebar {
-    width: var(--sidebar-width);
-    position: fixed;
-}
-
 .content {
-    margin-left: var(--sidebar-width);
-    padding-left: 30px;
-    width: 780px;
+    padding: 20px;
 }
+
+@media screen and (min-width: 1024px) {
+    .wrapper {
+        padding: 50px;
+    }
+
+    .sidebar {
+        width: var(--sidebar-width);
+        position: fixed;
+    }
+
+    .content {
+        margin-left: var(--sidebar-width);
+        padding-left: 30px;
+        width: 780px;
+        padding-top: 0px;
+    }
+}
+

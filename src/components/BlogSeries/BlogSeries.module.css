@@ -18,7 +18,17 @@ li.part {
     margin-bottom: calc(var(--spacing-2) / 2);
 }
 
+li > * {
+    display: inline-block;
+}
+
 .here {
     font-style: italic;
     font-size: 0.8rem;
+}
+
+@media screen and (max-width: 1023px) {
+    .here {
+        display: none;
+    }
 }

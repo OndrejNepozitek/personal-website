@@ -40,12 +40,14 @@ const BlogPostTemplate: FunctionComponent<{
             </span>
           )}
           <h1 itemProp="headline">{title}</h1>
-          <p>{post.frontmatter.date}</p>
+          <div className={styles.meta}>
+            <span>{post.frontmatter.date}</span>
+          </div>
         </header>
         <MDXRenderer slug={post.fields.slug}>{post.body}</MDXRenderer>
         <hr />
         <div className={styles.footnote}>
-          Written by <span className={styles.footnoteName}>Ondřej Nepožitek</span>, who is a software developer and procedural generation enthusiast. In his free time, he usually works on <a href={data.site?.siteMetadata?.edgar.assetStoreUrl} target="_blank">Edgar</a>, his graph-based procedural level generator. Want to get in touch? See the sidebar.
+          Written by <span className={styles.footnoteName}>Ondřej Nepožitek</span>, who is a software developer and procedural generation enthusiast. In his free time, he usually works on <a href={data.site?.siteMetadata?.edgar.assetStoreUrl} target="_blank">Edgar</a>, his graph-based procedural level generator.
         </div>
 
       </article>

@@ -1,5 +1,5 @@
 .content {
-    width: 270px;
+
 }
 
 .title {
@@ -21,28 +21,30 @@
 }
 
 .menu {
-    margin-top: 30px;
+    margin: 0px;
+    padding: 10px 20px;
+    background-color: black;
 }
 
 .menu > li {
     list-style-type: none;
+    display: inline-block;
+    margin: 0 15px 0 0;
 }
 
 .menu-link {
     text-decoration: none;
-    font-size: 1rem;
-    color: var(--color-text);
+    font-size: 1.15rem;
     font-weight: 400;
+    color: white
 }
 
 .menu-link:hover {
-    color: var(--color-primary);
     border-bottom: 1px solid currentColor;
 }
 
 .menu-link-active {
-    color: var(--color-text);
-    border-bottom: 1px solid var(--color-primary);
+    border-bottom: 1px solid currentColor;
 }
 
 .contacts {
@@ -53,6 +55,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
+
 }
 
 .contact-link {
@@ -71,4 +74,41 @@
 
 .contact-link:hover {
     color: var(--color-primary);
+}
+
+@media screen and (min-width: 1024px) {
+    .content {
+        width: 270px;
+    }
+
+    .menu {
+        margin-top: 30px;
+        background-color: transparent;
+        padding: 0px;
+    }
+
+    .menu > li {
+        display: block;
+        margin: 0 0 18px 0;
+    }
+
+    .menu-link {
+        font-size: 1rem;
+        color: var(--color-text);
+    }
+
+    .menu-link:hover {
+        color: var(--color-primary);
+    }
+
+    .menu-link-active {
+        color: var(--color-text);
+        border-bottom: 1px solid var(--color-primary);
+    }
+}
+
+@media screen and (max-width: 1023px) {
+    .contacts, .title, .sub-title {
+        display: none;
+    }
 }

@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Link } from "gatsby"
 import * as styles from "./Sidebar.module.css"
+import {contactLink} from  "./Sidebar.module.css"
 import Icon from "../Icon/Icon"
 import getIcon from "../../utils/get_icon"
 import { FunctionComponent } from "react"
@@ -12,7 +13,7 @@ const IconLink: FunctionComponent<{ link: string; iconName: string }> = ({
   const icon = getIcon(iconName)
 
   return (
-    <a href={link} target="_blank" className={styles.contactLink}>
+    <a href={link} target="_blank" className={contactLink}>
       <Icon name={iconName} icon={icon} />
     </a>
   )

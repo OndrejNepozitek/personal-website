@@ -4,13 +4,13 @@
 }
 
 .post {
-    margin-bottom: 30px !important;
+    margin-bottom: 5px !important;
 }
 
 .post-title {
     margin-top: 0;
     margin-bottom: 0;
-    font-size: var(--fontSize-4)
+    font-size: var(--fontSize-3)
 }
 
 .series-title {
@@ -31,3 +31,12 @@
     color: #888;
 }
 
+@media screen and (min-width: 1024px) {
+    .post {
+        margin-bottom: 30px !important;
+    }
+
+    .post-title {
+        font-size: var(--fontSize-4)
+    }
+}
