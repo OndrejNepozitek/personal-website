@@ -14,30 +14,7 @@ module.exports = {
       summary: `who lives and works in San Francisco building useful things.`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
-    social: {
-      twitter: {
-        title: `@OndrejNepozitek`,
-        url: `https://twitter.com/OndrejNepozitek`
-      },
-      email: {
-        title: `ondra@nepozitek.cz`,
-        url: `mailto:ondra@nepozitek.cz`
-      },
-      github: {
-        title: `OndrejNepozitek`,
-        url: `https://github.com/OndrejNepozitek`
-      },
-      linkedin: {
-        title: `Ondřej Nepožitek`,
-        url: `https://www.linkedin.com/in/ondrej-nepozitek/`
-      }
-    },
-    edgar: {
-      assetStoreUrl: 'https://assetstore.unity.com/packages/tools/utilities/edgar-pro-procedural-level-generator-212735?aid=1100lozBv&pubref=edgar-blog',
-      githubUnity: 'https://github.com/OndrejNepozitek/Edgar-Unity',
-      githubDotNet: 'https://github.com/OndrejNepozitek/Edgar-DotNet'
-    }
+    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`
   },
   plugins: [
     `gatsby-plugin-image`,

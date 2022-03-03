@@ -1,9 +1,8 @@
 import * as React from "react"
 import { FunctionComponent } from "react"
-import { graphql } from "gatsby"
 import Layout from "../components/Layout/Layout"
 import Seo from "../components/Seo"
-import { AboutQuery } from "../../graphql-types"
+import { SOCIALS } from "../constants/meta"
 
 const SocialLink: FunctionComponent<{
   data: { title: string; url: string }
@@ -15,9 +14,7 @@ const SocialLink: FunctionComponent<{
   )
 }
 
-const AboutPage: FunctionComponent<{ data: AboutQuery }> = ({ data }) => {
-  const socials = data.site?.siteMetadata?.social!
-
+const AboutPage: FunctionComponent = () => {
   return (
     <Layout>
       <Seo title="About" description={"About me"} />
@@ -32,10 +29,10 @@ const AboutPage: FunctionComponent<{ data: AboutQuery }> = ({ data }) => {
 
           <h5>Do you want to get in touch?</h5>
           <p>
-            Twitter: <SocialLink data={socials.twitter} /><br />
-            Email: <SocialLink data={socials.email} /><br />
-            Github: <SocialLink data={socials.github} /><br />
-            LinkedIn: <SocialLink data={socials.linkedin} />
+            Twitter: <SocialLink data={SOCIALS.twitter} /><br />
+            Email: <SocialLink data={SOCIALS.email} /><br />
+            Github: <SocialLink data={SOCIALS.github} /><br />
+            LinkedIn: <SocialLink data={SOCIALS.linkedin} />
           </p>
         </header>
       </article>
@@ -44,11 +41,3 @@ const AboutPage: FunctionComponent<{ data: AboutQuery }> = ({ data }) => {
 }
 
 export default AboutPage
-
-export const pageQuery = graphql`
-  query About {
-    site {
-        ...SocialsFragment
-    }
-  }
-`

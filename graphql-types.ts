@@ -271,8 +271,6 @@ export type SiteSiteMetadata = {
   description: Maybe<Scalars['String']>;
   author: Maybe<Author>;
   siteUrl: Maybe<Scalars['String']>;
-  social: Social;
-  edgar: Edgar;
 };
 
 export type SiteFunction = Node & {
@@ -665,24 +663,6 @@ export type ImageSharpResize = {
 export type Author = {
   name: Maybe<Scalars['String']>;
   summary: Maybe<Scalars['String']>;
-};
-
-export type Social = {
-  twitter: SocialInfo;
-  email: SocialInfo;
-  linkedin: SocialInfo;
-  github: SocialInfo;
-};
-
-export type SocialInfo = {
-  title: Scalars['String'];
-  url: Scalars['String'];
-};
-
-export type Edgar = {
-  assetStoreUrl: Scalars['String'];
-  githubUnity: Scalars['String'];
-  githubDotNet: Scalars['String'];
 };
 
 export type Frontmatter = {
@@ -1967,31 +1947,11 @@ export type SiteSiteMetadataFilterInput = {
   description?: InputMaybe<StringQueryOperatorInput>;
   author?: InputMaybe<AuthorFilterInput>;
   siteUrl?: InputMaybe<StringQueryOperatorInput>;
-  social?: InputMaybe<SocialFilterInput>;
-  edgar?: InputMaybe<EdgarFilterInput>;
 };
 
 export type AuthorFilterInput = {
   name?: InputMaybe<StringQueryOperatorInput>;
   summary?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type SocialFilterInput = {
-  twitter?: InputMaybe<SocialInfoFilterInput>;
-  email?: InputMaybe<SocialInfoFilterInput>;
-  linkedin?: InputMaybe<SocialInfoFilterInput>;
-  github?: InputMaybe<SocialInfoFilterInput>;
-};
-
-export type SocialInfoFilterInput = {
-  title?: InputMaybe<StringQueryOperatorInput>;
-  url?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type EdgarFilterInput = {
-  assetStoreUrl?: InputMaybe<StringQueryOperatorInput>;
-  githubUnity?: InputMaybe<StringQueryOperatorInput>;
-  githubDotNet?: InputMaybe<StringQueryOperatorInput>;
 };
 
 export type SiteConnection = {
@@ -2046,17 +2006,6 @@ export type SiteFieldsEnum =
   | 'siteMetadata___author___name'
   | 'siteMetadata___author___summary'
   | 'siteMetadata___siteUrl'
-  | 'siteMetadata___social___twitter___title'
-  | 'siteMetadata___social___twitter___url'
-  | 'siteMetadata___social___email___title'
-  | 'siteMetadata___social___email___url'
-  | 'siteMetadata___social___linkedin___title'
-  | 'siteMetadata___social___linkedin___url'
-  | 'siteMetadata___social___github___title'
-  | 'siteMetadata___social___github___url'
-  | 'siteMetadata___edgar___assetStoreUrl'
-  | 'siteMetadata___edgar___githubUnity'
-  | 'siteMetadata___edgar___githubDotNet'
   | 'port'
   | 'host'
   | 'pathPrefix'
@@ -3462,27 +3411,12 @@ export type ImageSharpSortInput = {
 export type SeoQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SeoQueryQuery = { site: { siteMetadata: { title: string | null | undefined, description: string | null | undefined, social: { twitter: { title: string } } } | null | undefined } | null | undefined };
-
-export type SidebarQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type SidebarQuery = { site: { siteMetadata: { title: string | null | undefined, social: { twitter: { title: string, url: string }, email: { title: string, url: string }, github: { title: string, url: string }, linkedin: { title: string, url: string } } } | null | undefined } | null | undefined };
-
-export type AboutQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type AboutQuery = { site: { siteMetadata: { title: string | null | undefined, social: { twitter: { title: string, url: string }, email: { title: string, url: string }, github: { title: string, url: string }, linkedin: { title: string, url: string } } } | null | undefined } | null | undefined };
+export type SeoQueryQuery = { site: { siteMetadata: { title: string | null | undefined, description: string | null | undefined } | null | undefined } | null | undefined };
 
 export type IndexQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type IndexQuery = { site: { siteMetadata: { title: string | null | undefined } | null | undefined } | null | undefined, allMdx: { nodes: Array<{ excerpt: string, fields: { slug: string }, frontmatter: { date: any, title: string, description: string | null | undefined, series: string | null | undefined } }> } };
-
-export type ProjectsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ProjectsQuery = { site: { siteMetadata: { title: string | null | undefined, edgar: { assetStoreUrl: string, githubDotNet: string, githubUnity: string }, social: { twitter: { title: string, url: string }, email: { title: string, url: string }, github: { title: string, url: string }, linkedin: { title: string, url: string } } } | null | undefined } | null | undefined };
 
 export type BlogPostBySlugQueryVariables = Exact<{
   id: Scalars['String'];
@@ -3491,11 +3425,9 @@ export type BlogPostBySlugQueryVariables = Exact<{
 }>;
 
 
-export type BlogPostBySlugQuery = { site: { siteMetadata: { title: string | null | undefined, edgar: { assetStoreUrl: string } } | null | undefined } | null | undefined, mdx: { id: string, excerpt: string, body: string, fields: { slug: string }, frontmatter: { title: string, date: any, description: string | null | undefined, series: string | null | undefined } } | null | undefined, previous: { fields: { slug: string }, frontmatter: { title: string } } | null | undefined, next: { fields: { slug: string }, frontmatter: { title: string } } | null | undefined };
+export type BlogPostBySlugQuery = { site: { siteMetadata: { title: string | null | undefined } | null | undefined } | null | undefined, mdx: { id: string, excerpt: string, body: string, fields: { slug: string }, frontmatter: { title: string, date: any, description: string | null | undefined, series: string | null | undefined } } | null | undefined, previous: { fields: { slug: string }, frontmatter: { title: string } } | null | undefined, next: { fields: { slug: string }, frontmatter: { title: string } } | null | undefined };
 
 export type BlogPostsWithSeriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type BlogPostsWithSeriesQuery = { allMdx: { nodes: Array<{ fields: { slug: string }, frontmatter: { title: string, series: string | null | undefined } }> } };
-
-export type SocialsFragmentFragment = { siteMetadata: { title: string | null | undefined, social: { twitter: { title: string, url: string }, email: { title: string, url: string }, github: { title: string, url: string }, linkedin: { title: string, url: string } } } | null | undefined };

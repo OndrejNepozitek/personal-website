@@ -8,6 +8,7 @@ import * as React from "react"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 import { FunctionComponent } from "react"
+import { SOCIALS } from "../constants/meta"
 
 type SeoPropTypes = {
   description?: string | null
@@ -29,11 +30,6 @@ const Seo: FunctionComponent<SeoPropTypes> = ({
           siteMetadata {
             title
             description
-            social {
-              twitter {
-                title
-              }
-            }
           }
         }
       }
@@ -73,7 +69,7 @@ const Seo: FunctionComponent<SeoPropTypes> = ({
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata?.social?.twitter.title || ``,
+          content: SOCIALS.twitter.title || ``,
         },
         {
           name: `twitter:title`,

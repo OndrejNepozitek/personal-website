@@ -111,31 +111,11 @@ exports.createSchemaCustomization = ({ actions }) => {
     type SiteSiteMetadata {
       author: Author
       siteUrl: String
-      social: Social!
-      edgar: Edgar!
     }
 
     type Author {
       name: String
       summary: String
-    }
-
-    type Social {
-      twitter: SocialInfo!
-      email: SocialInfo!
-      linkedin: SocialInfo!
-      github: SocialInfo!
-    }
-    
-    type SocialInfo {
-      title: String!
-      url: String!
-    }
-    
-    type Edgar {
-      assetStoreUrl: String!
-      githubUnity: String!
-      githubDotNet: String!
     }
 
     type Mdx implements Node {
