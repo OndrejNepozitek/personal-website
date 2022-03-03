@@ -3843,11 +3843,6 @@ export type IndexQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type IndexQuery = { site: { siteMetadata: { title: string | null | undefined } | null | undefined } | null | undefined, allMdx: { nodes: Array<{ excerpt: string, fields: { slug: string }, frontmatter: { date: any, title: string, description: string | null | undefined, series: string | null | undefined } }> } };
 
-export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type Unnamed_1_Query = { site: { buildTime: any | null | undefined } | null | undefined };
-
 export type BlogPostBySlugQueryVariables = Exact<{
   id: Scalars['String'];
   previousPostId?: InputMaybe<Scalars['String']>;
