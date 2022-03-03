@@ -1,10 +1,11 @@
 import * as React from "react"
-import { Link } from "gatsby"
+import { graphql, Link, useStaticQuery } from "gatsby"
 import * as styles from "./Sidebar.module.css"
-import {contactLink} from  "./Sidebar.module.css"
+import { contactLink } from "./Sidebar.module.css"
 import Icon from "../Icon/Icon"
 import getIcon from "../../utils/get_icon"
 import { FunctionComponent } from "react"
+import { SidebarQuery } from "../../../graphql-types"
 
 const IconLink: FunctionComponent<{ link: string; iconName: string }> = ({
   link,
@@ -34,6 +35,17 @@ const MenuItem: FunctionComponent<{ to: string }> = props => {
 }
 
 const Sidebar: FunctionComponent = () => {
+  const data: SidebarQuery = useStaticQuery(
+    graphql`
+      query Sidebar {
+        site {
+          ...SocialsFragment
+        }
+      }
+    `
+  )
+  const socials = data.site?.siteMetadata?.social!
+
   return (
     <div className={styles.content}>
       <div className={styles.title}>
@@ -48,16 +60,10 @@ const Sidebar: FunctionComponent = () => {
         <MenuItem to="/about">About</MenuItem>
       </ul>
       <div className={styles.contacts}>
-        <IconLink
-          link="https://twitter.com/OndrejNepozitek"
-          iconName="twitter"
-        />
-        <IconLink link="https://github.com/OndrejNepozitek" iconName="github" />
-        <IconLink link="mailto:ondra@nepozitek.cz" iconName="email" />
-        <IconLink
-          link="https://www.linkedin.com/in/ondrej-nepozitek/"
-          iconName="linkedin"
-        />
+        <IconLink link={socials.twitter.url} iconName="twitter" />
+        <IconLink link={socials.github.url} iconName="github" />
+        <IconLink link={socials.email.url} iconName="email" />
+        <IconLink link={socials.linkedin.url} iconName="linkedin" />
       </div>
     </div>
   )

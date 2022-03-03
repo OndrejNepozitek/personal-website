@@ -191,7 +191,7 @@ type DirectoryGroupConnection {
 }
 
 type Edgar {
-    assetStoreUrl: String
+    assetStoreUrl: String!
 }
 
 type Fields {
@@ -912,14 +912,22 @@ type SitePluginGroupConnection {
 type SiteSiteMetadata {
     author: Author
     description: String
-    edgar: Edgar
+    edgar: Edgar!
     siteUrl: String
-    social: Social
+    social: Social!
     title: String
 }
 
 type Social {
-    twitter: String
+    email: SocialInfo!
+    github: SocialInfo!
+    linkedin: SocialInfo!
+    twitter: SocialInfo!
+}
+
+type SocialInfo {
+    title: String!
+    url: String!
 }
 
 enum DirectoryFieldsEnum {
@@ -1931,7 +1939,14 @@ enum SiteFieldsEnum {
     siteMetadata___description
     siteMetadata___edgar___assetStoreUrl
     siteMetadata___siteUrl
-    siteMetadata___social___twitter
+    siteMetadata___social___email___title
+    siteMetadata___social___email___url
+    siteMetadata___social___github___title
+    siteMetadata___social___github___url
+    siteMetadata___social___linkedin___title
+    siteMetadata___social___linkedin___url
+    siteMetadata___social___twitter___title
+    siteMetadata___social___twitter___url
     siteMetadata___title
 }
 
@@ -2718,7 +2733,15 @@ input SiteSortInput {
 }
 
 input SocialFilterInput {
-    twitter: StringQueryOperatorInput
+    email: SocialInfoFilterInput
+    github: SocialInfoFilterInput
+    linkedin: SocialInfoFilterInput
+    twitter: SocialInfoFilterInput
+}
+
+input SocialInfoFilterInput {
+    title: StringQueryOperatorInput
+    url: StringQueryOperatorInput
 }
 
 input StringQueryOperatorInput {

@@ -36,7 +36,8 @@
     text-decoration: none;
     font-size: 1.15rem;
     font-weight: 400;
-    color: white
+    color: white;
+    box-sizing: border-box;
 }
 
 .menu-link:hover {
@@ -95,6 +96,7 @@
     .menu-link {
         font-size: 1rem;
         color: var(--color-text);
+        height: 28px;
     }
 
     .menu-link:hover {

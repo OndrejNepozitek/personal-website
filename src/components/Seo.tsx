@@ -30,7 +30,9 @@ const Seo: FunctionComponent<SeoPropTypes> = ({
             title
             description
             social {
-              twitter
+              twitter {
+                title
+              }
             }
           }
         }
@@ -71,7 +73,7 @@ const Seo: FunctionComponent<SeoPropTypes> = ({
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata?.social?.twitter || ``,
+          content: site.siteMetadata?.social?.twitter.title || ``,
         },
         {
           name: `twitter:title`,

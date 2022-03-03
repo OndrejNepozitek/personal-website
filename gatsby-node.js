@@ -111,7 +111,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     type SiteSiteMetadata {
       author: Author
       siteUrl: String
-      social: Social
+      social: Social!
       edgar: Edgar!
     }
 
@@ -121,7 +121,15 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
 
     type Social {
-      twitter: String
+      twitter: SocialInfo!
+      email: SocialInfo!
+      linkedin: SocialInfo!
+      github: SocialInfo!
+    }
+    
+    type SocialInfo {
+      title: String!
+      url: String!
     }
     
     type Edgar {
