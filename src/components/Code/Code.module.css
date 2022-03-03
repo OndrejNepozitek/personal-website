@@ -2,7 +2,7 @@
     border-radius: 0.5rem;
     padding: 1rem;
     font-size: 0.75rem;
-
+    overflow-x: auto;
 }
 
 .code-wrapper {
