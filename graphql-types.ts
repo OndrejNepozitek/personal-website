@@ -681,6 +681,8 @@ export type SocialInfo = {
 
 export type Edgar = {
   assetStoreUrl: Scalars['String'];
+  githubUnity: Scalars['String'];
+  githubDotNet: Scalars['String'];
 };
 
 export type Frontmatter = {
@@ -1988,6 +1990,8 @@ export type SocialInfoFilterInput = {
 
 export type EdgarFilterInput = {
   assetStoreUrl?: InputMaybe<StringQueryOperatorInput>;
+  githubUnity?: InputMaybe<StringQueryOperatorInput>;
+  githubDotNet?: InputMaybe<StringQueryOperatorInput>;
 };
 
 export type SiteConnection = {
@@ -2051,6 +2055,8 @@ export type SiteFieldsEnum =
   | 'siteMetadata___social___github___title'
   | 'siteMetadata___social___github___url'
   | 'siteMetadata___edgar___assetStoreUrl'
+  | 'siteMetadata___edgar___githubUnity'
+  | 'siteMetadata___edgar___githubDotNet'
   | 'port'
   | 'host'
   | 'pathPrefix'
@@ -3472,6 +3478,11 @@ export type IndexQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type IndexQuery = { site: { siteMetadata: { title: string | null | undefined } | null | undefined } | null | undefined, allMdx: { nodes: Array<{ excerpt: string, fields: { slug: string }, frontmatter: { date: any, title: string, description: string | null | undefined, series: string | null | undefined } }> } };
+
+export type ProjectsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProjectsQuery = { site: { siteMetadata: { title: string | null | undefined, edgar: { assetStoreUrl: string, githubDotNet: string, githubUnity: string }, social: { twitter: { title: string, url: string }, email: { title: string, url: string }, github: { title: string, url: string }, linkedin: { title: string, url: string } } } | null | undefined } | null | undefined };
 
 export type BlogPostBySlugQueryVariables = Exact<{
   id: Scalars['String'];

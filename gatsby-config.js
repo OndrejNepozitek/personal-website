@@ -34,7 +34,9 @@ module.exports = {
       }
     },
     edgar: {
-      assetStoreUrl: 'https://assetstore.unity.com/packages/tools/utilities/edgar-pro-procedural-level-generator-212735?aid=1100lozBv&pubref=edgar-blog'
+      assetStoreUrl: 'https://assetstore.unity.com/packages/tools/utilities/edgar-pro-procedural-level-generator-212735?aid=1100lozBv&pubref=edgar-blog',
+      githubUnity: 'https://github.com/OndrejNepozitek/Edgar-Unity',
+      githubDotNet: 'https://github.com/OndrejNepozitek/Edgar-DotNet'
     }
   },
   plugins: [

@@ -192,6 +192,8 @@ type DirectoryGroupConnection {
 
 type Edgar {
     assetStoreUrl: String!
+    githubDotNet: String!
+    githubUnity: String!
 }
 
 type Fields {
@@ -1938,6 +1940,8 @@ enum SiteFieldsEnum {
     siteMetadata___author___summary
     siteMetadata___description
     siteMetadata___edgar___assetStoreUrl
+    siteMetadata___edgar___githubDotNet
+    siteMetadata___edgar___githubUnity
     siteMetadata___siteUrl
     siteMetadata___social___email___title
     siteMetadata___social___email___url
@@ -2384,6 +2388,8 @@ input DuotoneGradient {
 
 input EdgarFilterInput {
     assetStoreUrl: StringQueryOperatorInput
+    githubDotNet: StringQueryOperatorInput
+    githubUnity: StringQueryOperatorInput
 }
 
 input FieldsFilterInput {

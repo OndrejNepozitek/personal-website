@@ -134,6 +134,8 @@ exports.createSchemaCustomization = ({ actions }) => {
     
     type Edgar {
       assetStoreUrl: String!
+      githubUnity: String!
+      githubDotNet: String!
     }
 
     type Mdx implements Node {
