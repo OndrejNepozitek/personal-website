@@ -7,35 +7,39 @@ redirect_from:
   - /42/dungeon-generator-part-1-node-based-approach/
 ---
 
-In this blog post, I'm going to describe my algorithm for procedural generation of 2D dungeon levels with a predefined structure. I won’t go into implementation details today as I plan to make this into a (mini) series and cover it in the next post.
+In this blog post, I'm going to describe my algorithm for procedural generation of 2D dungeon levels with a predefined structure. I won't go into implementation details today as I plan to make this into a series and cover it in the next post.
 
 <BlogSeries slug={props.slug} />
 <EdgarLinks />
 
 ## Background
 
-The algorithm was written as a part of my [bachelor thesis](https://github.com/OndrejNepozitek/Edgar-DotNet/blob/text/bachelor_thesis.pdf) and is based on the previous work from Ma et al (2014). The goal of the thesis was to improve the speed of the algorithm and enhance it with new features. I’m quite satisfied with the result as we were able to make the algorithm fast enough to be used during game runtime. After finishing the thesis, we decided to transform it into a paper and submit it to the Game-ON 2018 conference.
+The algorithm was written as a part of my [bachelor thesis](https://github.com/OndrejNepozitek/Edgar-DotNet/blob/text/bachelor_thesis.pdf) and is based on the previous work from Ma et al (2014). The goal of the thesis was to improve the speed of the algorithm and enhance it with new features. I'm quite satisfied with the result as we were able to make the algorithm fast enough to be used during game runtime. After finishing the thesis, we decided to transform it into a paper and submit it to the Game-ON 2018 conference.
 
 ## Algorithm
 
-To produce a game level, the algorithm takes a set of polygonal building blocks and a level connectivity graph (the level topology) as an input. Nodes in the graph represent rooms, and edges define connectivities between them. The goal of the algorithm is to assign a room shape and a position to each node in the graph in a way that no two room shapes intersect and every pair of neighbouring room shapes can be connected by doors.
+To produce a game level, the algorithm takes a set of polygonal building blocks (room templates) and a level connectivity graph (the level topology) as an input. Nodes in the graph represent rooms, and edges define connections between them. The goal of the algorithm is to assign a room shape and a position to each node in the graph in a way that no two room shapes intersect and every pair of neighbouring room shapes can be connected by doors.
 
 ```grid|2
 ![Level graph](./images/level_graph.png)
-![Building blocks](./images/building_blocks.png)
+![Building blocks (room templates)](./images/building_blocks.png)
 ![Generated level](./images/advanced_1.png)
 ![Generated level](./images/advanced_2.png)
 ```
 
-Through the connectivity graph, a game designer can easily affect the flow of gameplay. Do you want a single main path to a boss room with some optional side paths? Simply start with a path graph and then pick some nodes where the player can choose to either follow the main path or explore a side path with possible treasures and/or monsters waiting for him. Do you want a shortcut? Simply choose two nodes in the graph and add a shorter path that connects them. The possibilities are endless.
+Through the connectivity graph, a game designer can easily affect the flow of gameplay. Do you want a single main path to a boss room with some optional side paths? Simply start with a path graph and then pick some nodes where the player can choose to either follow the main path or explore a side path with possible treasures and/or monsters waiting for them. Do you want a shortcut? Simply choose two nodes in the graph and add a shorter path that connects them. The possibilities are endless.
 
 ```grid|3
-![](./images/sample_graph_1.png)
-![](./images/sample_graph_2.png)
-![](./images/sample_graph_3.png)
+![Straight path](./images/sample_graph_1.png)
+![Optional branches (blue)](./images/sample_graph_2.png)
+![Shortcut (yellow)](./images/sample_graph_3.png)
 ```
 
 Not only does the algorithm allow game designers to control the high-level structure of generated layouts, it also provides ways to control the look of individual rooms and how they are connected to each other.
+
+### Cycles in level graphs
+
+Probably the most interesting feature of the whole algorithm is that you can have cycles in your level graphs. That is something that you usually don't see in graph-based generators because it's really hard to implement performance-wise.
 
 ### Different room shapes for different rooms
 
@@ -66,7 +70,7 @@ When we talk about dungeon levels, we often imagine rooms connected by narrow co
 ![(b)](./images/level_graph_with_corridors.png)
 ```
 
-Unfortunately, by doing so we make the task a lot harder for the algorithm as we often end up with twice as many nodes. Therefore, I implemented a version of the algorithm that is aware of corridors and can reduce the performance loss of laying out corridor rooms. The algorithm currently supports either having corridors between all rooms or not having corridors at all, but I plan to make this more customizable in the future.
+Unfortunately, by doing so we make the task a lot harder for the algorithm as we often end up with twice as many nodes. Therefore, I implemented a version of the algorithm that is aware of corridors and can reduce the performance loss of laying out corridor rooms.
 
 ## Examples
 
@@ -88,8 +92,8 @@ Unfortunately, by doing so we make the task a lot harder for the algorithm as we
 
 ## What's next
 
-In the next post I’ll describe how the algorithm works under the hood.
+In the next post I'm going to describe how the algorithm works under the hood.
 
-I’m also working on a Unity plugin for procedural dungeon generation that will incorporate this algorithm. The reason for that is that even though this algorithm can be directly used in Unity (as it is written in C#), the user experience is far from ideal. It is quite time-consuming to design room templates without a GUI and there is also quite a lot of programming needed to transform the output of the algorithm to a representation that is usable in a game.
+I'm also working on a Unity plugin for procedural dungeon generation that will incorporate this algorithm. The reason for that is that even though this algorithm can be directly used in Unity (as it is written in C#), the user experience is far from ideal. It is quite time-consuming to design room templates without a GUI and there is also quite a lot of programming needed to transform the output of the algorithm to a representation that is usable in a game.
 
-As I’m not a game developer myself, the goal is to make the plugin good enough for someone else to use it. If everything goes well, I’ll try to post updates when I have something interesting to present. I’ve also got quite a few ideas regarding the generator itself and testing its possibilities.
+As I'm not a game developer myself, the goal is to make the plugin good enough for someone else to use it. If everything goes well, I'll try to post updates when I have something interesting to present. I've also got quite a few ideas regarding the generator itself and testing its possibilities.

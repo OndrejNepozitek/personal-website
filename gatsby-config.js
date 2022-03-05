@@ -183,6 +183,7 @@ module.exports = {
         query: "allMdx",
       },
     },
-    `gatsby-plugin-meta-redirect`
+    `gatsby-plugin-meta-redirect`,
+    `gatsby-plugin-catch-links`
   ],
 }

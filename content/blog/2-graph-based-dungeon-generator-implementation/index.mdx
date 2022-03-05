@@ -10,13 +10,13 @@ redirect_from:
 TODO: previous post link
 TODO: code captions
 
-In this blog post, I’ll describe the core ideas behind the algorithm that was presented in the previous post. Initially I thought I’d describe the core concepts together with all the main improvements that are needed to make the algorithm fast enough. However, it turned out that even the core concepts alone are probably more than enough for a single post. So I decided to cover performance improvements in a future post instead.
+In this blog post, I'm going to describe the core ideas behind the algorithm that was presented in the [previous post](/graph-based-dungeon-generator-basics-1/). Initially I thought I'd describe the core concepts together with all the main improvements that are needed to make the algorithm fast enough. However, it turned out that even the core concepts alone are probably more than enough for a single post. So I decided to cover performance improvements in a future post instead.
 
 <BlogSeries slug={props.slug} />
 
 ## Motivation
 
-Before going into the implementation, I want to show you the result of what we’re building here. The following video shows 30 different layouts generated from a single input graph with one set of building blocks. The algorithm always stops for 500 ms after generating a layout and then tries to generate another one.
+Before going into the implementation, I want to show you the result of what we're building here. The following video shows 30 different layouts generated from a single input graph with one set of building blocks. The algorithm always stops for 500 ms after generating a layout and then tries to generate another one.
 
 `youtube: https://www.youtube.com/watch?v=pjSD6t7ISFg&ab_channel=OndrejNepozitek`
 
@@ -39,15 +39,15 @@ For a pair of polygons, one fixed and one free, a configuration space is a set o
 
 Following algorithm is used to compute the configuration space of two blocks, one being fixed and the other one being allowed to move. We pick a reference point on the moving block and consider all locations in R2 such that, if the polygon is moved in a way that the reference point is placed at that location, both the moving block and the fixed block contact each other but do not intersect. The set of all these points forms the configuration space of the two blocks (image above – left). To get the configuration space of a moving block with respect to two or more fixed blocks, the intersection of the individual configuration spaces is computed (image above – right).
 
-The algorithm utilizes configuration spaces in two ways. First, instead of trying random positions of individual rooms, we use configuration spaces to find positions that lead to as many neighbouring rooms being connected by doors as possible. This is done by getting the maximum non-empty intersection of configuration spaces of neighbours. Second, we use configuration spaces to check if all pairs of neighbouring rooms can be connected by doors. This is done by checking if a room’s position is contained in the configuration space of all its neighbours.
+The algorithm utilizes configuration spaces in two ways. First, instead of trying random positions of individual rooms, we use configuration spaces to find positions that lead to as many neighbouring rooms being connected by doors as possible. This is done by getting the maximum non-empty intersection of configuration spaces of neighbours. Second, we use configuration spaces to check if all pairs of neighbouring rooms can be connected by doors. This is done by checking if a room's position is contained in the configuration space of all its neighbours.
 
 Because room shapes are not changed during runtime, we can precompute the configuration spaces of all pairs of room shapes before the algorithm starts. By doing so, we significantly speed up the whole algorithm.
 
 ## Incremental layout
 
-When solving a complex problem, one possible approach is to divide it into smaller and easier sub-problems, and solve them instead. And that’s exactly what we do with the problem of laying out individual rooms. Instead of trying to lay out all the rooms at once, we decompose the input graph into smaller sub-graphs and then try to lay them out one at a time. Authors of the original algorithm call these sub-graphs “chains” because the idea is that graphs, where each node has at most two neighbours, are relatively easy to lay out.
+When solving a complex problem, one possible approach is to divide it into smaller and easier sub-problems, and solve them instead. And that's exactly what we do with the problem of laying out individual rooms. Instead of trying to lay out all the rooms at once, we decompose the input graph into smaller sub-graphs and then try to lay them out one at a time. Authors of the original algorithm call these sub-graphs “chains” because the idea is that graphs, where each node has at most two neighbours, are relatively easy to lay out.
 
-Our final output layout is always a single connected component, hence there’s no benefit in laying out separate components and then trying to join them, as the joining process can be quite difficult. Instead, after laying out a chain, the next chain to connect is always one that’s connected to already laid out vertices.
+Our final output layout is always a single connected component, hence there's no benefit in laying out separate components and then trying to join them, as the joining process can be quite difficult. Instead, after laying out a chain, the next chain to connect is always one that's connected to already laid out vertices.
 
 ```csharp lineNumbers
 $caption:A pseudocode showing an incremental approach to finding a valid layout.
@@ -105,7 +105,7 @@ To decompose a graph into chains, we have to find a planar embedding of the inpu
 
 [Simulated annealing](https://en.wikipedia.org/wiki/Simulated_annealing) is a probabilistic optimization technique whose goal is to explore the space of possible layouts. It was chosen by the authors of the original paper because they had found it useful in similar situations before. When implementing the algorithm, I decided to use the same method because I wanted to start with something that already proved to be successful when solving this problem. However, I think that it could be replaced with a different method and the library is written in a way that the process of changing the method should be quite simple.
 
-Simulated annealing operates by iteratively considering small changes to the current configuration, or layout. That means that we create a new configuration by randomly picking one node and changing its position or shape. If the new configuration improves the energy function, it’s always accepted. Otherwise, there’s a small probability of accepting the configuration anyway. The probability of accepting worse solutions decreases over time. The energy function is constructed in a way that it heavily penalizes nodes that intersect and neighbouring nodes that do not overlap.
+Simulated annealing operates by iteratively considering small changes to the current configuration, or layout. That means that we create a new configuration by randomly picking one node and changing its position or shape. If the new configuration improves the energy function, it's always accepted. Otherwise, there's a small probability of accepting the configuration anyway. The probability of accepting worse solutions decreases over time. The energy function is constructed in a way that it heavily penalizes nodes that intersect and neighbouring nodes that do not overlap.
 
 $$
 E = e^{\frac{A}{\omega}} e^{\frac{D}{\omega}} – 1
@@ -113,12 +113,12 @@ $$
 
 $A$ is the total area of intersection between all pairs of blocks in the layout. $D$ is the sum of squared distances between the centers of pairs of blocks that are neighbours in the input graph, but which are not in contact. The value of $\omega$ affects how often is simulated annealing allowed to move to a worse configuration, and is derived from the average area of building blocks.
 
-After picking a node to be changed, we either change its shape or its position. How do we choose a new position? We could pick it at random but that would often make the energy function worse and the algorithm would converge very slowly. Are we able to choose a position that will most likely improve the energy function? Do you see where I’m heading? We’ll use configuration spaces to choose a position that satisfies constraints of as many neighbouring rooms as possible.
+After picking a node to be changed, we either change its shape or its position. How do we choose a new position? We could pick it at random but that would often make the energy function worse and the algorithm would converge very slowly. Are we able to choose a position that will most likely improve the energy function? Do you see where I'm heading? We'll use configuration spaces to choose a position that satisfies constraints of as many neighbouring rooms as possible.
 
 Changing the shape is then only a matter of randomly picking one of available room shapes. The algorithm currently does not try to decide which shape has a better chance of leading us to a valid layout. However, it may be interesting to try that out and see if improves the speed of the algorithm.
 
 ```csharp lineNumbers
-$caption:A pseudocode of a method that’s responsible for laying out a single chain of rooms using simulated annealing.
+$caption:A pseudocode of a method that's responsible for laying out a single chain of rooms using simulated annealing.
 List<Layout> AddChain(chain, layout) {
     var currentLayout = GetInitialLayout(layout, chain);
     var generatedLayouts = new List<Layout>();
@@ -151,7 +151,7 @@ List<Layout> AddChain(chain, layout) {
 }
 ```
 
-To speed up the whole process, we try to find an initial configuration with a low energy. To do that, we construct a breadth-first search ordering of nodes in the current chain, starting from the ones that are adjacent to already laid out nodes. Ordered nodes are then placed one at a time, choosing a position from the configuration space with the lowest energy. We don’t do any backtracking here – it’s a simple greedy process.
+To speed up the whole process, we try to find an initial configuration with a low energy. To do that, we construct a breadth-first search ordering of nodes in the current chain, starting from the ones that are adjacent to already laid out nodes. Ordered nodes are then placed one at a time, choosing a position from the configuration space with the lowest energy. We don't do any backtracking here – it's a simple greedy process.
 
 ## Bonus video
 
