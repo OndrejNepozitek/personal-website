@@ -6,17 +6,20 @@ require("ts-node").register({
 })
 
 module.exports = {
-  pathPrefix: "/personal-website",
+  pathPrefix: "/blog",
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
-    author: {
-      name: `Ondřej Nepožitek`,
-      summary: `who lives and works in San Francisco building useful things.`,
-    },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`
+    title: `Ondřej Nepožitek's blog`,
+    description: `A personal blog (mostly) about procedural generation`,
+    siteUrl: `https://ondra.nepozitek.cz/`
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-31904365-14",
+        head: true,
+      }
+    },
     `gatsby-plugin-image`,
     {
       resolve: `gatsby-source-filesystem`,

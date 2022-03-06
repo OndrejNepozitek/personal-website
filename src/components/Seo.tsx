@@ -79,10 +79,10 @@ const Seo: FunctionComponent<SeoPropTypes> = ({
           name: `twitter:description`,
           content: metaDescription,
         },
-        {
+        /*{
           name: `robots`,
           content: `noindex`,
-        },
+        },*/
       ].concat(meta as any)}
     />
   )

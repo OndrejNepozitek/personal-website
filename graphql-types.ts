@@ -247,8 +247,6 @@ export type DirectoryCtimeArgs = {
 export type Site = Node & {
   buildTime: Maybe<Scalars['Date']>;
   siteMetadata: Maybe<SiteSiteMetadata>;
-  port: Maybe<Scalars['Int']>;
-  host: Maybe<Scalars['String']>;
   pathPrefix: Maybe<Scalars['String']>;
   polyfill: Maybe<Scalars['Boolean']>;
   jsxRuntime: Maybe<Scalars['String']>;
@@ -269,7 +267,6 @@ export type SiteBuildTimeArgs = {
 export type SiteSiteMetadata = {
   title: Maybe<Scalars['String']>;
   description: Maybe<Scalars['String']>;
-  author: Maybe<Author>;
   siteUrl: Maybe<Scalars['String']>;
 };
 
@@ -660,11 +657,6 @@ export type ImageSharpResize = {
   originalName: Maybe<Scalars['String']>;
 };
 
-export type Author = {
-  name: Maybe<Scalars['String']>;
-  summary: Maybe<Scalars['String']>;
-};
-
 export type Frontmatter = {
   title: Scalars['String'];
   description: Maybe<Scalars['String']>;
@@ -812,8 +804,6 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: InputMaybe<DateQueryOperatorInput>;
   siteMetadata?: InputMaybe<SiteSiteMetadataFilterInput>;
-  port?: InputMaybe<IntQueryOperatorInput>;
-  host?: InputMaybe<StringQueryOperatorInput>;
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
   polyfill?: InputMaybe<BooleanQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
@@ -1945,13 +1935,7 @@ export type DirectorySortInput = {
 export type SiteSiteMetadataFilterInput = {
   title?: InputMaybe<StringQueryOperatorInput>;
   description?: InputMaybe<StringQueryOperatorInput>;
-  author?: InputMaybe<AuthorFilterInput>;
   siteUrl?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type AuthorFilterInput = {
-  name?: InputMaybe<StringQueryOperatorInput>;
-  summary?: InputMaybe<StringQueryOperatorInput>;
 };
 
 export type SiteConnection = {
@@ -2003,11 +1987,7 @@ export type SiteFieldsEnum =
   | 'buildTime'
   | 'siteMetadata___title'
   | 'siteMetadata___description'
-  | 'siteMetadata___author___name'
-  | 'siteMetadata___author___summary'
   | 'siteMetadata___siteUrl'
-  | 'port'
-  | 'host'
   | 'pathPrefix'
   | 'polyfill'
   | 'jsxRuntime'
@@ -2142,8 +2122,6 @@ export type SiteGroupConnectionGroupArgs = {
 export type SiteFilterInput = {
   buildTime?: InputMaybe<DateQueryOperatorInput>;
   siteMetadata?: InputMaybe<SiteSiteMetadataFilterInput>;
-  port?: InputMaybe<IntQueryOperatorInput>;
-  host?: InputMaybe<StringQueryOperatorInput>;
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
   polyfill?: InputMaybe<BooleanQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;

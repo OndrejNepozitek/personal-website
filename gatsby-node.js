@@ -74,8 +74,6 @@ function transformSlug(slug) {
   slashParts[postNameIndex] = `${restOfName}-${postId}`;
   const newSlug = slashParts.join("/")
 
-  console.log(newSlug);
-
   return newSlug
 }
 
@@ -109,13 +107,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   // blog posts are stored inside "content/blog" instead of returning an error
   createTypes(`
     type SiteSiteMetadata {
-      author: Author
       siteUrl: String
-    }
-
-    type Author {
-      name: String
-      summary: String
     }
 
     type Mdx implements Node {

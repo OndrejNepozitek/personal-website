@@ -1,5 +1,5 @@
 import * as React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import Layout from "../../components/Layout/Layout"
 import Seo from "../../components/Seo"
 import { FunctionComponent } from "react"
@@ -49,6 +49,8 @@ const BlogPostTemplate: FunctionComponent<{
         <hr />
         <div className={styles.footnote}>
           Written by <span className={styles.footnoteName}>Ondřej Nepožitek</span>, who is a software developer and procedural generation enthusiast. In his free time, he usually works on <a href={EDGAR_URLS.assetStore} target="_blank">Edgar</a>, his graph-based procedural level generator.
+          <br /><br />
+          Want to get in touch? See the <Link to="/about">About</Link> page.
         </div>
 
       </article>
