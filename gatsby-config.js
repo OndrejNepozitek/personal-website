@@ -187,6 +187,7 @@ module.exports = {
       },
     },
     `gatsby-plugin-meta-redirect`,
-    `gatsby-plugin-catch-links`
+    `gatsby-plugin-catch-links`,
+    `gatsby-plugin-sitemap`
   ],
 }
